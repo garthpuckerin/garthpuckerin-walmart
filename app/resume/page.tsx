@@ -12,7 +12,11 @@ export default function ResumePage() {
   useEffect(() => {
     setMounted(true);
     const saved = localStorage.getItem('wm-theme') as 'light' | 'dark' | null;
-    if (saved === 'light' || saved === 'dark') setTheme(saved);
+    if (saved === 'light' || saved === 'dark') {
+      setTheme(saved);
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setTheme('dark');
+    }
   }, []);
 
   const toggleTheme = () => {
