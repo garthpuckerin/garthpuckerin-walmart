@@ -10,6 +10,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 
+### Styling
+
+- **Yellow bullet points**: all `◆` list markers (modal capabilities, philosophy section, experience bullets) changed from `accent` (Walmart blue) to `yellow` token — consistent warm accent in both light and dark themes
+- **Yellow ✦ sparks**: `✦ APPLIED IMPLEMENTATIONS ✦` divider ✦ characters now use `yellow` token (were inheriting `t.textSubtle` which rendered blue on light theme)
+
 ### Config
 
 - Align repo tooling standards with workspace conventions:

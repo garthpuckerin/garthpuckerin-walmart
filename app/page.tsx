@@ -31,11 +31,13 @@ function ProjectModal({
   project,
   accent,
   t,
+  yellow,
   onClose,
 }: {
   project: Project | PlatformProject;
   accent: string;
   t: ThemeColors;
+  yellow: string;
   onClose: () => void;
 }) {
   const handleClose = useCallback(() => onClose(), [onClose]);
@@ -195,7 +197,7 @@ function ProjectModal({
             >
               {project.modal.capabilities.map((cap, i) => (
                 <li key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <span style={{ color: accent, flexShrink: 0, marginTop: 5, fontSize: 6 }}>◆</span>
+                  <span style={{ color: yellow, flexShrink: 0, marginTop: 5, fontSize: 6 }}>◆</span>
                   <span style={{ fontSize: 13.5, color: t.textSecondary, lineHeight: 1.65 }}>
                     {cap}
                   </span>
@@ -311,7 +313,7 @@ function ProjectCard({
   project: Project;
   accent: string;
   t: ThemeColors;
-  onOpen: (_p: Project) => void;
+  onOpen: (_: Project) => void;
 }) {
   const [hovered, setHovered] = useState(false);
   const activate = () => onOpen(project);
@@ -1025,7 +1027,7 @@ export default function Page() {
               'Stakeholder trust built by being the person who flags issues before they become incidents',
             ].map((item, i) => (
               <li key={i} style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
-                <span style={{ color: accent, flexShrink: 0, marginTop: 5, fontSize: 7 }}>◆</span>
+                <span style={{ color: yellow, flexShrink: 0, marginTop: 5, fontSize: 7 }}>◆</span>
                 <span style={{ fontSize: 15, color: t.textBody, lineHeight: 1.7 }}>{item}</span>
               </li>
             ))}
@@ -1206,7 +1208,8 @@ export default function Page() {
                 flexShrink: 0,
               }}
             >
-              ✦ APPLIED IMPLEMENTATIONS ✦
+              <span style={{ color: yellow }}>✦</span> APPLIED IMPLEMENTATIONS{' '}
+              <span style={{ color: yellow }}>✦</span>
             </span>
             <div style={{ flex: 1, height: 1, background: t.border }} />
           </div>
@@ -1311,7 +1314,7 @@ export default function Page() {
                   >
                     {job.bullets.map((b, j) => (
                       <li key={j} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                        <span style={{ color: accent, flexShrink: 0, marginTop: 5, fontSize: 7 }}>
+                        <span style={{ color: yellow, flexShrink: 0, marginTop: 5, fontSize: 7 }}>
                           ◆
                         </span>
                         <span style={{ fontSize: 13.5, color: t.textSecondary, lineHeight: 1.65 }}>
@@ -1738,6 +1741,7 @@ export default function Page() {
           project={activeModal}
           accent={accent}
           t={t}
+          yellow={yellow}
           onClose={() => setActiveModal(null)}
         />
       )}
