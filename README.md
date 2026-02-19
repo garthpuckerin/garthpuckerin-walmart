@@ -21,3 +21,13 @@ Files added
 - `app/resume/page.tsx` — resume viewer and download link
 - `components/JobPosting.tsx` — job content component
 - `components/ResumeCard.tsx` — resume link card
+
+Changelog
+
+- This repo uses `standard-version` and conventional commits to manage releases and changelog entries. To create a new release and update `CHANGELOG.md`, run:
+
+```bash
+npm run release
+```
+
+This will update `CHANGELOG.md`, create a git tag, and bump the version in `package.json`.
