@@ -1,30 +1,30 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { THEMES, ACCENT_LIGHT, ACCENT_DARK } from '../../lib/themes'
+import { useState, useEffect } from 'react';
+import { THEMES, ACCENT_LIGHT, ACCENT_DARK } from '../../lib/themes';
 
-const RESUME_PATH = '/Garth_Puckerin_AI_Native_Learning_Systems_Architect_Resume.pdf'
+const RESUME_PATH = '/Garth_Puckerin_AI_Native_Learning_Systems_Architect_Resume.pdf';
 
 export default function ResumePage() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light')
-  const [mounted, setMounted] = useState(false)
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true)
-    const saved = localStorage.getItem('wm-theme') as 'light' | 'dark' | null
-    if (saved === 'light' || saved === 'dark') setTheme(saved)
-  }, [])
+    setMounted(true);
+    const saved = localStorage.getItem('wm-theme') as 'light' | 'dark' | null;
+    if (saved === 'light' || saved === 'dark') setTheme(saved);
+  }, []);
 
   const toggleTheme = () => {
-    const next = theme === 'light' ? 'dark' : 'light'
-    setTheme(next)
-    localStorage.setItem('wm-theme', next)
-  }
+    const next = theme === 'light' ? 'dark' : 'light';
+    setTheme(next);
+    localStorage.setItem('wm-theme', next);
+  };
 
-  const t = THEMES[theme]
-  const accent = theme === 'light' ? ACCENT_LIGHT : ACCENT_DARK
+  const t = THEMES[theme];
+  const accent = theme === 'light' ? ACCENT_LIGHT : ACCENT_DARK;
 
-  if (!mounted) return null
+  if (!mounted) return null;
 
   return (
     <div
@@ -200,5 +200,5 @@ export default function ResumePage() {
         </div>
       </main>
     </div>
-  )
+  );
 }

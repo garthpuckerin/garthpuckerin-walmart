@@ -2,49 +2,49 @@
 // ── Types ─────────────────────────────────────────────────────────────────────
 
 export interface ProjectModal {
-  overview: string
-  capabilities: string[]
-  enterpriseValue: string
-  useCases: string[]
+  overview: string;
+  capabilities: string[];
+  enterpriseValue: string;
+  useCases: string[];
 }
 
 export interface PlatformProject {
-  id: string
-  title: string
-  type: string
-  description: string
-  tech: string[]
-  modal: ProjectModal
+  id: string;
+  title: string;
+  type: string;
+  description: string;
+  tech: string[];
+  modal: ProjectModal;
 }
 
 export interface Project {
-  id: string
-  label: string
-  platformLabel?: string
-  title: string
-  type: string
-  description: string
-  tech: string[]
-  href?: string
-  modal: ProjectModal
+  id: string;
+  label: string;
+  platformLabel?: string;
+  title: string;
+  type: string;
+  description: string;
+  tech: string[];
+  href?: string;
+  modal: ProjectModal;
 }
 
 export interface RoleAlignment {
-  requirement: string
-  evidence: string
-  highlight: string
+  requirement: string;
+  evidence: string;
+  highlight: string;
 }
 
 export interface Experience {
-  role: string
-  company: string
-  period: string
-  bullets: string[]
+  role: string;
+  company: string;
+  period: string;
+  bullets: string[];
 }
 
 export interface SkillGroup {
-  group: string
-  items: string[]
+  group: string;
+  items: string[];
 }
 
 // ── Platform Architecture (core systems — matches resume) ──────────────────────
@@ -128,7 +128,7 @@ export const PLATFORM_PROJECTS: PlatformProject[] = [
       ],
     },
   },
-]
+];
 
 // ── Applied Systems (production implementations of the platform) ───────────────
 
@@ -249,7 +249,7 @@ export const PROJECTS: Project[] = [
       ],
     },
   },
-]
+];
 
 // ── Role Alignment ─────────────────────────────────────────────────────────────
 
@@ -290,7 +290,7 @@ export const ROLE_ALIGNMENT: RoleAlignment[] = [
       'Configured GxP-compliant SCORM validation and global launch schedules at Boehringer Ingelheim Pharmaceuticals. Introduced and implemented xAPI-compliant LXP tools with full data tracking at Success Academy.',
     highlight: 'GxP SCORM + xAPI — both standards',
   },
-]
+];
 
 // ── Experience ─────────────────────────────────────────────────────────────────
 
@@ -373,29 +373,57 @@ export const EXPERIENCE: Experience[] = [
       'Migrated workflows to SharePoint and SumTotal with improved reporting and traceability',
     ],
   },
-]
+];
 
 // ── Skills ─────────────────────────────────────────────────────────────────────
 
 export const SKILLS: SkillGroup[] = [
   {
     group: 'LMS Platforms',
-    items: ['Docebo', 'Workday Learning', 'SumTotal', 'SuccessFactors', 'Axonify', 'Intellum-ready'],
+    items: [
+      'Docebo',
+      'Workday Learning',
+      'SumTotal',
+      'SuccessFactors',
+      'Axonify',
+      'Intellum-ready',
+    ],
   },
   {
     group: 'AI & Automation',
-    items: ['Claude API', 'Curriculum Builder', 'Prompt Observatory', 'Airtable', 'Workflow Automation', 'Agentic AI'],
+    items: [
+      'Claude API',
+      'Curriculum Builder',
+      'Prompt Observatory',
+      'Airtable',
+      'Workflow Automation',
+      'Agentic AI',
+    ],
   },
   {
     group: 'Integration & Systems',
-    items: ['Workday', 'Salesforce', 'UKG Pro', 'Okta SSO', 'LinkedIn Learning', 'HRIS/CRM', 'REST APIs'],
+    items: [
+      'Workday',
+      'Salesforce',
+      'UKG Pro',
+      'Okta SSO',
+      'LinkedIn Learning',
+      'HRIS/CRM',
+      'REST APIs',
+    ],
   },
   {
     group: 'Analytics & Reporting',
-    items: ['AWS QuickSight', 'Salesforce Reports', 'Excel / Google Sheets', 'Pivot Tables', 'VLOOKUP / XLOOKUP'],
+    items: [
+      'AWS QuickSight',
+      'Salesforce Reports',
+      'Excel / Google Sheets',
+      'Pivot Tables',
+      'VLOOKUP / XLOOKUP',
+    ],
   },
   {
     group: 'Standards & Compliance',
     items: ['SCORM 2004', 'xAPI / Tin Can', 'GxP Compliance', 'WCAG 2.1'],
   },
-]
+];

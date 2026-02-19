@@ -1,4 +1,5 @@
-import './globals.css'
+import React from 'react';
+import './globals.css';
 
 export const metadata = {
   title: 'Garth Puckerin — LMS Administrator · Walmart Connect Academy',
@@ -20,12 +21,12 @@ export const metadata = {
     description:
       'Targeted application. 10+ years enterprise LMS, AI-powered L&D tools, 10,000+ users at Entrust.',
   },
-}
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>{children}</body>
     </html>
-  )
+  );
 }
