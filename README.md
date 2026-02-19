@@ -1,33 +1,60 @@
-# Garth Puckerin — Walmart LMS Administrator Application
+# Garth Puckerin — Walmart Connect Academy Application
 
-This is a targeted job application site and resume for the LMS Administrator role at Walmart Connect Academy.
+A targeted job application site for the LMS Administrator role at Walmart Connect Academy. Built with Next.js 16, TypeScript, and inline styles — no external UI libraries.
 
-Quick start
+## Setup
 
 ```bash
-cd garthpuckerin-walmart
 npm install
 npm run dev
 ```
 
-Notes
+Open [http://localhost:3000](http://localhost:3000).
 
-- The resume PDF is present in the repository root as `Garth_Puckerin_AI_Native_Learning_Systems_Architect_Resume.pdf`.
-- For local dev and proper serving from Next.js, move the PDF into `public/` (create `public/` and place the PDF there). After moving, the resume will be available at `/Garth_Puckerin_AI_Native_Learning_Systems_Architect_Resume.pdf`.
+## Scripts
 
-Files added
+| Script                  | Description                                          |
+| ----------------------- | ---------------------------------------------------- |
+| `npm run dev`           | Start development server                             |
+| `npm run build`         | Production build                                     |
+| `npm run typecheck`     | TypeScript type check                                |
+| `npm run lint`          | ESLint check                                         |
+| `npm run format`        | Prettier format (write)                              |
+| `npm run format:check`  | Prettier format (check only)                         |
+| `npm run test`          | Run tests                                            |
+| `npm run test:coverage` | Run tests with coverage                              |
+| `npm run validate`      | Full quality gate (typecheck + lint + format + test) |
+| `npm run commit`        | Commitizen interactive commit                        |
+| `npm run release`       | Bump version, update CHANGELOG, tag                  |
 
-- `app/page.tsx` — job posting and apply CTA
-- `app/resume/page.tsx` — resume viewer and download link
-- `components/JobPosting.tsx` — job content component
-- `components/ResumeCard.tsx` — resume link card
+## Structure
 
-Changelog
+```
+app/
+  page.tsx            — main application site
+  resume/page.tsx     — /resume route (resume viewer)
+  layout.tsx
+  globals.css
+components/
+  JobPosting.tsx
+  ResumeCard.tsx
+lib/
+  data.ts             — all site content (projects, experience, skills)
+  themes.ts           — light/dark token system
+public/
+  *.pdf               — resume PDF
+```
 
-- This repo uses `standard-version` and conventional commits to manage releases and changelog entries. To create a new release and update `CHANGELOG.md`, run:
+## Commits
+
+Uses [Conventional Commits](https://www.conventionalcommits.org/) enforced via Commitlint. Use `npm run commit` for an interactive prompt.
+
+Valid scopes: `ui`, `data`, `config`, `docs`, `ci`, `deps`, `theme`
+
+## Releases
 
 ```bash
 npm run release
 ```
 
-This will update `CHANGELOG.md`, create a git tag, and bump the version in `package.json`.
+Updates `CHANGELOG.md`, bumps `package.json` version, and creates a git tag. Push the tag to trigger deployment.
