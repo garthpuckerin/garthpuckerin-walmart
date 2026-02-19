@@ -15,6 +15,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - **Yellow bullet points**: all `◆` list markers (modal capabilities, philosophy section, experience bullets) changed from `accent` (Walmart blue) to `yellow` token — consistent warm accent in both light and dark themes
 - **Yellow ✦ sparks**: `✦ APPLIED IMPLEMENTATIONS ✦` divider ✦ characters now use `yellow` token (were inheriting `t.textSubtle` which rendered blue on light theme)
 
+### Documentation
+
+- `LICENSE`: MIT license added; GitHub now displays license badge
+- `package.json`: add `description`, `homepage`, and `repository` fields
+- PR template: add test plan section (validate, light/dark, mobile) and CHANGELOG checklist item
+
 ### Config
 
 - Align repo tooling standards with workspace conventions:
