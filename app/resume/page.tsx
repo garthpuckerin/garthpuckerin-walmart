@@ -94,7 +94,10 @@ export default function ResumePage() {
               background: t.toggleBg,
               color: t.toggleColor,
               border: 'none',
-              padding: '5px 10px',
+              padding: '0 10px',
+              height: 30,
+              display: 'inline-flex',
+              alignItems: 'center',
               cursor: 'pointer',
               letterSpacing: '0.08em',
             }}
@@ -110,7 +113,10 @@ export default function ResumePage() {
               fontWeight: 700,
               color: '#fff',
               background: accent,
-              padding: '6px 14px',
+              padding: '0 14px',
+              height: 30,
+              display: 'inline-flex',
+              alignItems: 'center',
               textDecoration: 'none',
               letterSpacing: '0.04em',
             }}
