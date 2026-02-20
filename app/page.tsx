@@ -520,6 +520,7 @@ export default function Page() {
   const t = THEMES[theme];
   const accent = theme === 'light' ? ACCENT_LIGHT : ACCENT_DARK;
   const yellow = theme === 'light' ? '#C49B00' : '#FFD24D';
+  const statusGreen = '#16a34a';
   const yellowBadgeBg = theme === 'light' ? '#FFFBEB' : '#FFD24D18';
   const yellowBadgeBorder = theme === 'light' ? '#E6B800' : '#FFD24D55';
   const yellowBadgeText = theme === 'light' ? '#9B6C00' : '#FFD24D';
@@ -650,7 +651,10 @@ export default function Page() {
               background: t.toggleBg,
               color: t.toggleColor,
               border: 'none',
-              padding: '5px 10px',
+              padding: '0 10px',
+              height: 30,
+              display: 'inline-flex',
+              alignItems: 'center',
               cursor: 'pointer',
               letterSpacing: '0.08em',
               transition: 'opacity 0.15s ease',
@@ -669,7 +673,10 @@ export default function Page() {
               fontWeight: 700,
               color: '#fff',
               background: accent,
-              padding: '6px 14px',
+              padding: '0 14px',
+              height: 30,
+              display: 'inline-flex',
+              alignItems: 'center',
               textDecoration: 'none',
               letterSpacing: '0.04em',
               transition: 'opacity 0.15s ease, transform 0.15s ease',
@@ -864,9 +871,9 @@ export default function Page() {
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: '#16a34a',
-                background: '#16a34a18',
-                border: '1px solid #16a34a30',
+                color: statusGreen,
+                background: `${statusGreen}18`,
+                border: `1px solid ${statusGreen}30`,
                 padding: '4px 12px',
                 letterSpacing: '0.1em',
               }}

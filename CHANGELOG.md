@@ -10,10 +10,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ## [Unreleased]
 
+### Features
+
+- **System-aware theme**: theme resolution order is now `localStorage` → `prefers-color-scheme` → light default. Applies to both main page and resume page.
+- **Favicon**: `app/icon.svg` — Walmart blue (`#0071CE`) background with yellow (`#FFD24D`) pixel-constructed G lettermark; auto-served by Next.js App Router.
+
 ### Styling
 
 - **Yellow bullet points**: all `◆` list markers (modal capabilities, philosophy section, experience bullets) changed from `accent` (Walmart blue) to `yellow` token — consistent warm accent in both light and dark themes
 - **Yellow ✦ sparks**: `✦ APPLIED IMPLEMENTATIONS ✦` divider ✦ characters now use `yellow` token (were inheriting `t.textSubtle` which rendered blue on light theme)
+- **Button height consistency**: toggle and Download Resume/PDF buttons now use `height: 30` + `display: inline-flex` across both pages — eliminates height drift from font-size differences
+- **Green status const**: `● Available Now` badge color extracted from hardcoded literals to `statusGreen` const
+
+### Config
+
+- `app/layout.tsx`: add `viewport` export (`width: device-width, initialScale: 1`) as separate Next.js App Router export
+- Remove unused `components/JobPosting.tsx` and `components/ResumeCard.tsx`
 
 ### Documentation
 
