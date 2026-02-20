@@ -8,52 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ---
 
-## [Unreleased]
+## [0.1.0] — 2026-02-19
 
-### Features
-
-- **System-aware theme**: theme resolution order is now `localStorage` → `prefers-color-scheme` → light default. Applies to both main page and resume page.
-- **Favicon**: `app/icon.svg` — Walmart blue (`#0071CE`) background with yellow (`#FFD24D`) pixel-constructed G lettermark; auto-served by Next.js App Router.
-
-### Styling
-
-- **Yellow bullet points**: all `◆` list markers (modal capabilities, philosophy section, experience bullets) changed from `accent` (Walmart blue) to `yellow` token — consistent warm accent in both light and dark themes
-- **Yellow ✦ sparks**: `✦ APPLIED IMPLEMENTATIONS ✦` divider ✦ characters now use `yellow` token (were inheriting `t.textSubtle` which rendered blue on light theme)
-- **Button height consistency**: toggle and Download Resume/PDF buttons now use `height: 30` + `display: inline-flex` across both pages — eliminates height drift from font-size differences
-- **Green status const**: `● Available Now` badge color extracted from hardcoded literals to `statusGreen` const
-
-### Config
-
-- `app/layout.tsx`: add `viewport` export (`width: device-width, initialScale: 1`) as separate Next.js App Router export
-- Remove unused `components/JobPosting.tsx` and `components/ResumeCard.tsx`
-
-### Documentation
-
-- `LICENSE`: MIT license added; GitHub now displays license badge
-- `package.json`: add `description`, `homepage`, and `repository` fields
-- PR template: add test plan section (validate, light/dark, mobile) and CHANGELOG checklist item
-
-### Config
-
-- Align repo tooling standards with workspace conventions:
-  - `tsconfig.json`: enable `strict: true`, `moduleResolution: bundler`, add `@/*` path alias
-  - `.prettierrc`: `trailingComma` changed from `all` → `es5` (consistent across workspace)
-  - `commitlint.config.cjs`: add `header-max-length` rule and `scope-enum` (`ui`, `data`, `config`, `docs`, `ci`, `deps`, `theme`)
-  - `package.json`: add `validate` script (typecheck + lint + format:check + test)
-  - `.versionrc.json`: standard-version type/section mappings for structured CHANGELOG output
-  - `.husky`: remove deprecated Husky v8 shebang lines (v9 convention)
-- Add `CONTRIBUTING.md`: quality gates, commit convention with examples, release process
-- Rewrite `README.md`: setup, scripts table, project structure, release docs
-
----
-
-## [0.1.0] — 2025 (initial build)
+Initial release. Designed, built, and shipped in a single session.
 
 ### Features
 
 **Platform Architecture Block**
 
-- Added three-row "PLATFORM ARCHITECTURE" block above the applied project grid
+- Three-row "PLATFORM ARCHITECTURE" block above the applied project grid
 - Each row (MIMIR², Aether SDK, Janus) opens a full-detail modal on click
 - Rows are keyboard-accessible (`tabIndex`, `role="button"`, `onKeyDown`)
 - `platformLabel` badge on each applied project card connects tools to their platform layer
@@ -79,8 +42,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - Header: hides nav and WALMART APPLICATION badge on mobile; "Resume" replaces "Download Resume"
 - All 2-col grids collapse to 1-col on mobile
 - Experience rows collapse from 2-col grid to single column
-- Footer stacks vertically on mobile
-- Platform rows stack vertically on mobile
+- Footer and platform rows stack vertically on mobile
 
 **Accessibility**
 
@@ -88,12 +50,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 - `role="button"`, `tabIndex={0}`, `onKeyDown` (Enter/Space) on all non-anchor interactive divs
 - `aria-label` on nav, modal, and card elements
 
-**Yellow Accent System**
+**Theme System**
 
+- Light / dark toggle with `localStorage` persistence (`wm-theme` key)
+- System-aware: resolves `localStorage` → `prefers-color-scheme` → light default
 - `yellow` token: `#C49B00` (light) / `#FFD24D` (dark)
-- `yellowBadge*` tokens for the ✦ APPLYING badge (pale yellow bg, amber border, dark amber text on light; transparent tint on dark)
-- Applied to: APPLYING badge, ✓ checkmarks in Role Fit cards, nav active underline, dark-mode stat numbers
-- Light mode stat numbers remain Walmart blue (`accent`) for contrast
+- `yellowBadge*` tokens for the ✦ APPLYING badge
+- All `◆` list markers and `✦` divider sparks use `yellow` token in both themes
+- Favicon: `app/icon.svg` — Walmart blue (`#0071CE`) background with yellow G lettermark
 
 **Impact Metrics Row**
 
@@ -105,32 +69,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 - Centered statement above Contact section: _"I build learning systems that organizations can depend on — and evolve safely as technology changes."_
 
-**Section Rename**
+**Resume Page**
 
-- "Apply" → "Contact" / "Get in Touch"
-- Section title: "Applied Systems Built on My Learning Platform Architecture"
-- `✦ APPLIED IMPLEMENTATIONS ✦` divider between platform block and project cards
+- `/resume` route: PDF embed + inline viewer with Download PDF button
+- Shares theme state with main page via `localStorage`
 
 ### Styling
 
-- `footerBg`: `theme === 'light'` footer label uses `t.textMuted` + `fontWeight: 600` for legibility (was `t.textSubtle` in both modes)
-- Card flex-column layout: `display: flex, flexDirection: column` on cards; `flex: 1` on description text; `alignSelf: flex-start` on badge spans — ensures bottom-aligned footers across unequal-height cards
-- Experience row hover: `t.expHover` (light `#eef4fb` / dark `#0b1c30`)
-- Platform row hover: same `t.expHover` token
+- Footer label: `t.textMuted` + `fontWeight: 600` on light theme for legibility
+- Card flex-column layout with `flex: 1` on description and `alignSelf: flex-start` on badges — bottom-aligned card footers across unequal heights
+- Experience and platform row hover: `t.expHover` token
+- All header buttons (`toggle`, `Download Resume/PDF`) use `height: 30` + `display: inline-flex` for pixel-exact alignment across both pages
+- `statusGreen` const for `● Available Now` badge — no scattered hex literals
 
 ### Bug Fixes
 
-- **Scroll tracking**: replaced `offsetTop` (relative to positioned ancestor) with `getBoundingClientRect().top + scrollY` — fixes Contact and Skills never becoming active
-- **Nav highlight race**: split scroll-tracking into a separate `useEffect` dependent on `[mounted]`, so sections exist in DOM when the observer attaches
-- **Role Fit badge stretch**: added `alignSelf: flex-start` to prevent badge from stretching full card width in flex-column layout
+- **Scroll tracking**: replaced `offsetTop` with `getBoundingClientRect().top + scrollY` — fixes Contact and Skills never becoming active
+- **Nav highlight race**: split scroll-tracking into a separate `useEffect` dependent on `[mounted]`
+- **Role Fit badge stretch**: `alignSelf: flex-start` prevents badge from stretching full card width
 
 ### Infrastructure
 
-- `git init` — project was not under version control at project start
-- `.gitignore`: exclude `.next/`, `node_modules/`
+- `.gitignore`: exclude `.next/`, `node_modules/`, `tsconfig.tsbuildinfo`
+- GitHub: public repo at [garthpuckerin/garthpuckerin-walmart](https://github.com/garthpuckerin/garthpuckerin-walmart); git history cleaned with `git filter-repo` to remove large binaries committed before `.gitignore` was in place
 - `.github/workflows/ci.yml`: typecheck → lint → format:check → test → coverage → build + security audit on push/PR
 - `.github/workflows/deploy.yml`: Vercel production deploy on push to main
-- Husky + lint-staged: ESLint + Prettier on staged TS/JS; Prettier on JSON/MD/YAML
+- Husky v9 + lint-staged: ESLint fix + Prettier on staged TS/JS; Prettier on JSON/MD/YAML
 - Commitlint: conventional commits enforced on commit-msg
 - Commitizen: interactive prompt via `npm run commit`
 - standard-version: `npm run release` bumps version, updates CHANGELOG, creates git tag
+- `app/layout.tsx`: `viewport` export per Next.js App Router spec (`width: device-width, initialScale: 1`)
+- `LICENSE`: MIT
+
+### Documentation
+
+- `README.md`: setup, scripts table, project structure, release docs
+- `CONTRIBUTING.md`: quality gates, commit convention with examples, release process
+- `.github/pull_request_template.md`: summary, test plan (validate + light/dark + mobile), checklist
+- `package.json`: `description`, `homepage`, `repository` fields
