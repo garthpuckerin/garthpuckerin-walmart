@@ -41,11 +41,6 @@ export default function ResumePage() {
         transition: 'background 0.25s ease, color 0.25s ease',
       }}
     >
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Syne+Mono&family=Epilogue:wght@400;500&display=swap');
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-      `}</style>
-
       {/* Header */}
       <header
         style={{
