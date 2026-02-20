@@ -87,13 +87,19 @@ Initial release. Designed, built, and shipped in a single session.
 - **Scroll tracking**: replaced `offsetTop` with `getBoundingClientRect().top + scrollY` — fixes Contact and Skills never becoming active
 - **Nav highlight race**: split scroll-tracking into a separate `useEffect` dependent on `[mounted]`
 - **Role Fit badge stretch**: `alignSelf: flex-start` prevents badge from stretching full card width
+- **`<a>` lint error**: replaced `<a href="/">` in `app/resume/page.tsx` with `<Link>` from `next/link` — fixes `@next/next/no-html-link-for-pages` ESLint violation
 
 ### Infrastructure
 
-- `.gitignore`: exclude `.next/`, `node_modules/`, `tsconfig.tsbuildinfo`
+- `.gitignore`: exclude `.next/`, `node_modules/`, `tsconfig.tsbuildinfo`, `.vercel/`
 - GitHub: public repo at [garthpuckerin/garthpuckerin-walmart](https://github.com/garthpuckerin/garthpuckerin-walmart); git history cleaned with `git filter-repo` to remove large binaries committed before `.gitignore` was in place
-- `.github/workflows/ci.yml`: typecheck → lint → format:check → test → coverage → build + security audit on push/PR
-- `.github/workflows/deploy.yml`: Vercel production deploy on push to main
+- `.github/workflows/ci.yml`: typecheck → lint → format:check → test → coverage → build + security audit on push/PR; trigger limited to `[main]` branch
+- Vercel GitHub integration handles production deploys natively; no separate `deploy.yml` required
+- `.npmrc`: `legacy-peer-deps=true` — aligns local and CI npm peer-dependency resolution; fixes `npm ci` lock file sync errors
+- `eslint-config-next` pinned to `^15.5.12` — v16 requires ESLint 9 flat config, incompatible with current `eslint@8` setup
+- `eslint` bumped to `^8.57.1` — satisfies `@typescript-eslint` peer dependency minimum
+- `lint` script: `eslint app lib --ext .ts,.tsx,.js,.jsx` (direct call) instead of `next lint` — `next lint` reads `npm_lifecycle_event` as a directory path, causing a spurious "no such directory" error in CI
+- `test` / `test:coverage` scripts: `--passWithNoTests` flag added — prevents vitest from exiting 1 when no test files exist
 - Husky v9 + lint-staged: ESLint fix + Prettier on staged TS/JS; Prettier on JSON/MD/YAML
 - Commitlint: conventional commits enforced on commit-msg
 - Commitizen: interactive prompt via `npm run commit`
