@@ -313,7 +313,7 @@ function ProjectCard({
   project: Project;
   accent: string;
   t: ThemeColors;
-  onOpen: (_: Project) => void;
+  onOpen: (p: Project) => void;
 }) {
   const [hovered, setHovered] = useState(false);
   const activate = () => onOpen(project);

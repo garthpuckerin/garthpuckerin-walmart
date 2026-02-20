@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { THEMES, ACCENT_LIGHT, ACCENT_DARK } from '../../lib/themes';
 
 const RESUME_PATH = '/Garth_Puckerin_AI_Native_Learning_Systems_Architect_Resume.pdf';
@@ -61,7 +62,7 @@ export default function ResumePage() {
           justifyContent: 'space-between',
         }}
       >
-        <a
+        <Link
           href="/"
           style={{
             fontFamily: "'Syne', sans-serif",
@@ -73,7 +74,7 @@ export default function ResumePage() {
           }}
         >
           ← Back
-        </a>
+        </Link>
         <span
           style={{
             fontFamily: "'Syne Mono', monospace",
