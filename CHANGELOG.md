@@ -8,6 +8,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 
 ---
 
+## [Unreleased]
+
+### Bug Fixes
+
+- `app/resume/page.tsx`: replace `<a href="/">` with `<Link>` from `next/link` — fixes `@next/next/no-html-link-for-pages` ESLint error
+
+### Infrastructure
+
+- `.npmrc`: add `legacy-peer-deps=true` — aligns local and CI npm resolution strategy, eliminates lock file drift
+- `eslint-config-next`: pinned to `^15` (ESLint 8 compatible); v16 requires `eslint>=9` / flat config migration
+- `eslint`: bumped `8.47.0 → ^8.57.1` to satisfy `@typescript-eslint` peer deps from `eslint-config-next@15`
+- `lint` script: replaced `next lint` (reads `npm_lifecycle_event` as directory) with `eslint app lib --ext .ts,.tsx,.js,.jsx`
+- `test` / `test:coverage`: add `--passWithNoTests` so CI passes before test suite is written
+- `ci.yml`: remove dead `master` branch trigger; now watches `main` only
+- `deploy.yml`: removed — Vercel GitHub integration handles production deploys natively; workflow was redundant and failing due to missing secrets
+
+---
+
 ## [1.0.0] — 2026-02-19
 
 Initial release. Designed, built, and shipped in a single session.
