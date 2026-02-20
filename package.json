@@ -1,6 +1,6 @@
 {
   "name": "garthpuckerin-walmart",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Garth Puckerin — Walmart Connect Academy LMS Administrator application site. Built with Next.js, TypeScript, and inline styles.",
   "homepage": "https://garthpuckerin-walmart.vercel.app",
   "repository": {
