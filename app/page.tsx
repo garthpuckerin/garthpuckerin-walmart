@@ -1,10 +1,8 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { ROLE_ALIGNMENT, EXPERIENCE, SKILLS, PROJECTS, PLATFORM_PROJECTS } from '../lib/data';
-import { THEMES, ACCENT_LIGHT, ACCENT_DARK } from '../lib/themes';
 import type { Project, PlatformProject } from '../lib/data';
-import type { ThemeColors } from '../lib/themes';
 
 const RESUME_PATH = '/Garth_Puckerin_AI_Native_Learning_Systems_Architect_Resume.pdf';
 
@@ -29,22 +27,14 @@ const IMPACT_STATS = [
 
 function ProjectModal({
   project,
-  accent,
-  t,
-  yellow,
   onClose,
 }: {
   project: Project | PlatformProject;
-  accent: string;
-  t: ThemeColors;
-  yellow: string;
   onClose: () => void;
 }) {
-  const handleClose = useCallback(() => onClose(), [onClose]);
-
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') handleClose();
+      if (e.key === 'Escape') onClose();
     };
     document.addEventListener('keydown', handler);
     document.body.style.overflow = 'hidden';
@@ -52,11 +42,11 @@ function ProjectModal({
       document.removeEventListener('keydown', handler);
       document.body.style.overflow = '';
     };
-  }, [handleClose]);
+  }, [onClose]);
 
   return (
     <div
-      onClick={handleClose}
+      onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label={project.title}
@@ -75,8 +65,8 @@ function ProjectModal({
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: t.surface,
-          border: `1px solid ${t.border}`,
+          background: 'var(--surface)',
+          border: '1px solid var(--border)',
           maxWidth: 640,
           width: '100%',
           maxHeight: '85vh',
@@ -95,9 +85,9 @@ function ProjectModal({
             gap: 16,
             position: 'sticky',
             top: 0,
-            background: t.surface,
+            background: 'var(--surface)',
             zIndex: 1,
-            borderBottom: `1px solid ${t.border}`,
+            borderBottom: '1px solid var(--border)',
           }}
         >
           <div>
@@ -105,7 +95,7 @@ function ProjectModal({
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: accent,
+                color: 'var(--accent)',
                 letterSpacing: '0.12em',
                 marginBottom: 6,
               }}
@@ -117,7 +107,7 @@ function ProjectModal({
                 fontFamily: "'Syne', sans-serif",
                 fontSize: 22,
                 fontWeight: 800,
-                color: t.text,
+                color: 'var(--text)',
                 letterSpacing: '-0.02em',
                 lineHeight: 1.2,
               }}
@@ -126,12 +116,12 @@ function ProjectModal({
             </h2>
           </div>
           <button
-            onClick={handleClose}
+            onClick={onClose}
             type="button"
             style={{
               background: 'none',
-              border: `1px solid ${t.border}`,
-              color: t.textMuted,
+              border: '1px solid var(--border)',
+              color: 'var(--text-muted)',
               width: 32,
               height: 32,
               cursor: 'pointer',
@@ -143,12 +133,12 @@ function ProjectModal({
               transition: 'all 0.15s ease',
             }}
             onMouseEnter={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.borderColor = accent;
-              (e.currentTarget as HTMLButtonElement).style.color = accent;
+              (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--accent)';
+              (e.currentTarget as HTMLButtonElement).style.color = 'var(--accent)';
             }}
             onMouseLeave={(e) => {
-              (e.currentTarget as HTMLButtonElement).style.borderColor = t.border;
-              (e.currentTarget as HTMLButtonElement).style.color = t.textMuted;
+              (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border)';
+              (e.currentTarget as HTMLButtonElement).style.color = 'var(--text-muted)';
             }}
             aria-label="Close modal"
           >
@@ -163,14 +153,14 @@ function ProjectModal({
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: t.textSubtle,
+                color: 'var(--text-subtle)',
                 letterSpacing: '0.12em',
                 marginBottom: 10,
               }}
             >
               OVERVIEW
             </div>
-            <p style={{ fontSize: 14, color: t.textBody, lineHeight: 1.75 }}>
+            <p style={{ fontSize: 14, color: 'var(--text-body)', lineHeight: 1.75 }}>
               {project.modal.overview}
             </p>
           </div>
@@ -179,7 +169,7 @@ function ProjectModal({
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: t.textSubtle,
+                color: 'var(--text-subtle)',
                 letterSpacing: '0.12em',
                 marginBottom: 10,
               }}
@@ -197,8 +187,14 @@ function ProjectModal({
             >
               {project.modal.capabilities.map((cap, i) => (
                 <li key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <span style={{ color: yellow, flexShrink: 0, marginTop: 5, fontSize: 6 }}>◆</span>
-                  <span style={{ fontSize: 13.5, color: t.textSecondary, lineHeight: 1.65 }}>
+                  <span
+                    style={{ color: 'var(--yellow)', flexShrink: 0, marginTop: 5, fontSize: 6 }}
+                  >
+                    ◆
+                  </span>
+                  <span
+                    style={{ fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.65 }}
+                  >
                     {cap}
                   </span>
                 </li>
@@ -207,8 +203,8 @@ function ProjectModal({
           </div>
           <div
             style={{
-              borderLeft: `3px solid ${accent}`,
-              background: t.surface2,
+              borderLeft: '3px solid var(--accent)',
+              background: 'var(--surface2)',
               padding: '16px 20px',
               marginBottom: 24,
             }}
@@ -217,7 +213,7 @@ function ProjectModal({
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: accent,
+                color: 'var(--accent)',
                 letterSpacing: '0.12em',
                 marginBottom: 8,
               }}
@@ -227,7 +223,7 @@ function ProjectModal({
             <p
               style={{
                 fontSize: 14,
-                color: t.text,
+                color: 'var(--text)',
                 lineHeight: 1.7,
                 fontFamily: "'Syne', sans-serif",
                 fontWeight: 500,
@@ -241,7 +237,7 @@ function ProjectModal({
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: t.textSubtle,
+                color: 'var(--text-subtle)',
                 letterSpacing: '0.12em',
                 marginBottom: 10,
               }}
@@ -259,8 +255,12 @@ function ProjectModal({
             >
               {project.modal.useCases.map((uc, i) => (
                 <li key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                  <span style={{ color: t.textSubtle, flexShrink: 0, marginTop: 1 }}>·</span>
-                  <span style={{ fontSize: 13.5, color: t.textMuted, lineHeight: 1.6 }}>{uc}</span>
+                  <span style={{ color: 'var(--text-subtle)', flexShrink: 0, marginTop: 1 }}>
+                    ·
+                  </span>
+                  <span style={{ fontSize: 13.5, color: 'var(--text-muted)', lineHeight: 1.6 }}>
+                    {uc}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -270,7 +270,7 @@ function ProjectModal({
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: t.textSubtle,
+                color: 'var(--text-subtle)',
                 letterSpacing: '0.12em',
                 marginBottom: 10,
               }}
@@ -284,9 +284,9 @@ function ProjectModal({
                   style={{
                     fontFamily: "'Syne Mono', monospace",
                     fontSize: 11,
-                    color: t.tagColor,
-                    background: t.tagBg,
-                    border: `1px solid ${t.border}`,
+                    color: 'var(--tag-color)',
+                    background: 'var(--tag-bg)',
+                    border: '1px solid var(--border)',
                     padding: '4px 10px',
                     letterSpacing: '0.04em',
                   }}
@@ -306,14 +306,10 @@ function ProjectModal({
 
 function ProjectCard({
   project,
-  accent,
-  t,
   onOpen,
 }: {
   project: Project;
-  accent: string;
-  t: ThemeColors;
-  onOpen: (p: Project) => void;
+  onOpen: (_project: Project) => void;
 }) {
   const [hovered, setHovered] = useState(false);
   const activate = () => onOpen(project);
@@ -333,9 +329,9 @@ function ProjectCard({
       onMouseLeave={() => setHovered(false)}
       style={{
         cursor: 'pointer',
-        border: `1.5px solid ${hovered ? accent : t.border}`,
+        border: `1.5px solid ${hovered ? 'var(--accent)' : 'var(--border)'}`,
         padding: '24px 24px 20px',
-        background: hovered ? t.cardHoverBg : t.surface,
+        background: hovered ? 'var(--card-hover-bg)' : 'var(--surface)',
         transition: 'all 0.2s ease',
         display: 'flex',
         flexDirection: 'column',
@@ -354,7 +350,7 @@ function ProjectCard({
             fontFamily: "'Syne', sans-serif",
             fontSize: 10,
             fontWeight: 600,
-            color: hovered ? 'rgba(255,255,255,0.6)' : t.textSubtle,
+            color: hovered ? 'rgba(255,255,255,0.6)' : 'var(--text-subtle)',
             letterSpacing: '0.14em',
             textTransform: 'uppercase',
             transition: 'color 0.2s ease',
@@ -367,9 +363,9 @@ function ProjectCard({
             style={{
               fontFamily: "'Syne Mono', monospace",
               fontSize: 9,
-              color: hovered ? '#fff' : accent,
-              background: hovered ? 'rgba(255,255,255,0.15)' : accent + '18',
-              border: `1px solid ${hovered ? 'rgba(255,255,255,0.25)' : accent + '35'}`,
+              color: hovered ? '#fff' : 'var(--accent)',
+              background: hovered ? 'rgba(255,255,255,0.15)' : 'var(--accent-10)',
+              border: `1px solid ${hovered ? 'rgba(255,255,255,0.25)' : 'var(--accent-35)'}`,
               padding: '2px 7px',
               letterSpacing: '0.05em',
               transition: 'all 0.2s ease',
@@ -382,8 +378,8 @@ function ProjectCard({
             style={{
               fontFamily: "'Syne Mono', monospace",
               fontSize: 10,
-              color: hovered ? '#fff' : accent,
-              background: hovered ? 'rgba(255,255,255,0.15)' : accent + '18',
+              color: hovered ? '#fff' : 'var(--accent)',
+              background: hovered ? 'rgba(255,255,255,0.15)' : 'var(--accent-10)',
               padding: '2px 8px',
               letterSpacing: '0.08em',
               transition: 'all 0.2s ease',
@@ -398,7 +394,7 @@ function ProjectCard({
           fontFamily: "'Syne', sans-serif",
           fontSize: 18,
           fontWeight: 700,
-          color: hovered ? t.cardHoverText : t.text,
+          color: hovered ? 'var(--card-hover-text)' : 'var(--text)',
           marginBottom: 8,
           letterSpacing: '-0.02em',
           transition: 'color 0.2s ease',
@@ -411,7 +407,7 @@ function ProjectCard({
         style={{
           fontFamily: "'Epilogue', sans-serif",
           fontSize: 13,
-          color: hovered ? t.cardHoverMuted : t.textBody,
+          color: hovered ? 'var(--card-hover-muted)' : 'var(--text-body)',
           lineHeight: 1.7,
           marginBottom: 16,
           transition: 'color 0.2s ease',
@@ -436,8 +432,8 @@ function ProjectCard({
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: hovered ? 'rgba(255,255,255,0.75)' : t.tagColor,
-                border: `1px solid ${hovered ? 'rgba(255,255,255,0.25)' : t.border}`,
+                color: hovered ? 'rgba(255,255,255,0.75)' : 'var(--tag-color)',
+                border: `1px solid ${hovered ? 'rgba(255,255,255,0.25)' : 'var(--border)'}`,
                 padding: '2px 7px',
                 transition: 'all 0.2s ease',
               }}
@@ -451,7 +447,7 @@ function ProjectCard({
             fontFamily: "'Syne', sans-serif",
             fontSize: 12,
             fontWeight: 600,
-            color: hovered ? '#fff' : accent,
+            color: hovered ? '#fff' : 'var(--accent)',
             transition: 'color 0.2s ease',
           }}
         >
@@ -467,12 +463,10 @@ function ProjectCard({
 export default function Page() {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [activeSection, setActiveSection] = useState('overview');
-  const [mounted, setMounted] = useState(false);
   const [activeModal, setActiveModal] = useState<Project | PlatformProject | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const saved = localStorage.getItem('wm-theme') as 'light' | 'dark' | null;
     if (saved === 'light' || saved === 'dark') {
       setTheme(saved);
@@ -486,10 +480,8 @@ export default function Page() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Separate effect — only runs after mounted=true so sections exist in the DOM
   // Uses scroll position rather than IntersectionObserver — reliably handles short sections at page bottom
   useEffect(() => {
-    if (!mounted) return;
     const onScroll = () => {
       const threshold = window.scrollY + 100; // 100px below top of viewport (clears the 56px header)
       let active: string = NAV_SECTIONS[0];
@@ -505,57 +497,29 @@ export default function Page() {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener('scroll', onScroll);
-  }, [mounted]);
+  }, []);
 
   const toggleTheme = () => {
     const next = theme === 'light' ? 'dark' : 'light';
     setTheme(next);
     localStorage.setItem('wm-theme', next);
+    document.documentElement.dataset.theme = next;
   };
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const t = THEMES[theme];
-  const accent = theme === 'light' ? ACCENT_LIGHT : ACCENT_DARK;
-  const yellow = theme === 'light' ? '#C49B00' : '#FFD24D';
-  const statusGreen = '#16a34a';
-  const yellowBadgeBg = theme === 'light' ? '#FFFBEB' : '#FFD24D18';
-  const yellowBadgeBorder = theme === 'light' ? '#E6B800' : '#FFD24D55';
-  const yellowBadgeText = theme === 'light' ? '#9B6C00' : '#FFD24D';
-
-  if (!mounted) return null;
-
   return (
     <div
       style={{
         minHeight: '100vh',
-        background: t.bg,
+        background: 'var(--bg)',
         fontFamily: "'Epilogue', sans-serif",
-        color: t.text,
+        color: 'var(--text)',
         transition: 'background 0.25s ease, color 0.25s ease',
       }}
     >
-      <style>{`
-        ::selection { background: ${accent}; color: #fff; }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: ${t.bg}; }
-        ::-webkit-scrollbar-thumb { background: ${t.border}; border-radius: 2px; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-        *:focus-visible { outline: 2px solid ${accent}; outline-offset: 3px; }
-        button:focus-visible, [role="button"]:focus-visible { outline: 2px solid ${accent}; outline-offset: 2px; }
-        .skip-link { position: absolute; top: -60px; left: 16px; z-index: 9999; background: ${accent}; color: #fff; padding: 8px 16px; font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; text-decoration: none; transition: top 0.15s ease; }
-        .skip-link:focus { top: 8px; }
-        .nav-link:hover { color: ${accent} !important; }
-        .skill-tag:hover { background: ${accent} !important; color: #fff !important; border-color: ${accent} !important; }
-        .exp-row:hover { background: ${t.expHover} !important; }
-        .theme-btn:hover { opacity: 0.8 !important; }
-        .cta-dl:hover { opacity: 0.85 !important; transform: translateY(-1px) !important; }
-        .align-card:hover { border-color: ${accent} !important; }
-        .platform-row:hover { background: ${t.expHover} !important; }
-      `}</style>
-
       {/* Skip to content */}
       <a href="#overview" className="skip-link">
         Skip to content
@@ -567,9 +531,9 @@ export default function Page() {
           position: 'sticky',
           top: 0,
           zIndex: 100,
-          background: t.headerBg,
+          background: 'var(--header-bg)',
           backdropFilter: 'blur(14px)',
-          borderBottom: `1px solid ${t.border}`,
+          borderBottom: '1px solid var(--border)',
           padding: isMobile ? '0 20px' : '0 40px',
           height: 56,
           display: 'flex',
@@ -584,7 +548,7 @@ export default function Page() {
               fontFamily: "'Syne', sans-serif",
               fontSize: 14,
               fontWeight: 800,
-              color: t.text,
+              color: 'var(--text)',
               letterSpacing: '-0.02em',
             }}
           >
@@ -595,9 +559,9 @@ export default function Page() {
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: accent,
-                background: accent + '18',
-                border: `1px solid ${accent}30`,
+                color: 'var(--accent)',
+                background: 'var(--accent-10)',
+                border: '1px solid var(--accent-20)',
                 padding: '2px 9px',
                 letterSpacing: '0.1em',
               }}
@@ -621,12 +585,12 @@ export default function Page() {
                   fontFamily: "'Syne', sans-serif",
                   fontSize: 12,
                   fontWeight: 600,
-                  color: activeSection === s ? accent : t.textMuted,
+                  color: activeSection === s ? 'var(--accent)' : 'var(--text-muted)',
                   textDecoration: 'none',
                   letterSpacing: '0.04em',
                   textTransform: 'capitalize',
                   paddingBottom: 2,
-                  borderBottom: `1.5px solid ${activeSection === s ? yellow : 'transparent'}`,
+                  borderBottom: `1.5px solid ${activeSection === s ? 'var(--yellow)' : 'transparent'}`,
                   transition: 'all 0.15s ease',
                 }}
               >
@@ -647,8 +611,8 @@ export default function Page() {
             style={{
               fontFamily: "'Syne Mono', monospace",
               fontSize: 10,
-              background: t.toggleBg,
-              color: t.toggleColor,
+              background: 'var(--toggle-bg)',
+              color: 'var(--toggle-color)',
               border: 'none',
               padding: '0 10px',
               height: 30,
@@ -671,7 +635,7 @@ export default function Page() {
               fontSize: 12,
               fontWeight: 700,
               color: '#fff',
-              background: accent,
+              background: 'var(--accent)',
               padding: '0 14px',
               height: 30,
               display: 'inline-flex',
@@ -696,13 +660,13 @@ export default function Page() {
         {/* ── Hero ── */}
         <section
           id="overview"
-          style={{ paddingTop: 88, paddingBottom: 80, borderBottom: `1px solid ${t.border}` }}
+          style={{ paddingTop: 88, paddingBottom: 80, borderBottom: '1px solid var(--border)' }}
         >
           <div
             style={{
               fontFamily: "'Syne Mono', monospace",
               fontSize: 10,
-              color: accent,
+              color: 'var(--accent)',
               letterSpacing: '0.16em',
               marginBottom: 28,
               animation: 'fadeUp 0.45s ease forwards',
@@ -714,23 +678,25 @@ export default function Page() {
           >
             <span
               style={{
-                background: yellowBadgeBg,
-                border: `1px solid ${yellowBadgeBorder}`,
+                background: 'var(--yellow-badge-bg)',
+                border: '1px solid var(--yellow-badge-border)',
                 padding: '4px 12px',
                 letterSpacing: '0.12em',
-                color: yellowBadgeText,
+                color: 'var(--yellow-badge-text)',
               }}
             >
               ✦ APPLYING
             </span>
-            <span style={{ color: t.textSubtle }}>LMS ADMINISTRATOR · WALMART CONNECT ACADEMY</span>
+            <span style={{ color: 'var(--text-subtle)' }}>
+              LMS ADMINISTRATOR · WALMART CONNECT ACADEMY
+            </span>
           </div>
           <h1
             style={{
               fontFamily: "'Syne', sans-serif",
               fontSize: 'clamp(38px, 6vw, 66px)',
               fontWeight: 800,
-              color: t.text,
+              color: 'var(--text)',
               lineHeight: 1.05,
               letterSpacing: '-0.03em',
               marginBottom: 12,
@@ -745,7 +711,7 @@ export default function Page() {
               fontFamily: "'Syne', sans-serif",
               fontSize: isMobile ? 15 : 18,
               fontWeight: 500,
-              color: accent,
+              color: 'var(--accent)',
               letterSpacing: '-0.01em',
               marginBottom: 32,
               animation: 'fadeUp 0.45s ease 0.1s forwards',
@@ -755,19 +721,23 @@ export default function Page() {
             Senior LMS Administrator · AI-Native Learning Systems Architect
           </div>
           <div style={{ maxWidth: 620, animation: 'fadeUp 0.45s ease 0.14s forwards', opacity: 0 }}>
-            <p style={{ fontSize: 16, color: t.textBody, lineHeight: 1.8, marginBottom: 16 }}>
+            <p
+              style={{ fontSize: 16, color: 'var(--text-body)', lineHeight: 1.8, marginBottom: 16 }}
+            >
               I&apos;ve spent 10+ years making enterprise learning systems work at scale — Docebo,
               Workday Learning, SumTotal, SuccessFactors. The integrations, the permissions
               architecture, the data flows that keep learner records accurate when the org chart
               changes weekly.
             </p>
-            <p style={{ fontSize: 16, color: t.textBody, lineHeight: 1.8, marginBottom: 16 }}>
+            <p
+              style={{ fontSize: 16, color: 'var(--text-body)', lineHeight: 1.8, marginBottom: 16 }}
+            >
               Recently I&apos;ve been extending traditional LMS operations with AI-assisted tooling:
               a Curriculum Builder that generates structured courses from a prompt, an integration
               control plane for enterprise HR and LMS systems, and a documentation drift detector
               that flags when training content falls behind product changes.
             </p>
-            <p style={{ fontSize: 16, color: t.textBody, lineHeight: 1.8 }}>
+            <p style={{ fontSize: 16, color: 'var(--text-body)', lineHeight: 1.8 }}>
               The Walmart Connect Academy LMS Administrator role combines everything I do best —
               platform administration at enterprise scale, AI-first system design, and
               cross-functional stakeholder work. Here&apos;s how my experience directly maps to the
@@ -781,7 +751,7 @@ export default function Page() {
               display: 'grid',
               gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : 'repeat(4, 1fr)',
               gap: 1,
-              background: t.border,
+              background: 'var(--border)',
               marginTop: 48,
               marginBottom: 32,
               animation: 'fadeUp 0.45s ease 0.17s forwards',
@@ -791,14 +761,14 @@ export default function Page() {
             {IMPACT_STATS.map((stat) => (
               <div
                 key={stat.num}
-                style={{ background: t.surface, padding: '20px 16px', textAlign: 'center' }}
+                style={{ background: 'var(--surface)', padding: '20px 16px', textAlign: 'center' }}
               >
                 <div
                   style={{
                     fontFamily: "'Syne', sans-serif",
                     fontSize: isMobile ? 22 : 28,
                     fontWeight: 800,
-                    color: theme === 'light' ? accent : yellow,
+                    color: theme === 'light' ? 'var(--accent)' : 'var(--yellow)',
                     letterSpacing: '-0.03em',
                     lineHeight: 1,
                   }}
@@ -809,7 +779,7 @@ export default function Page() {
                   style={{
                     fontFamily: "'Syne Mono', monospace",
                     fontSize: 10,
-                    color: t.textSubtle,
+                    color: 'var(--text-subtle)',
                     letterSpacing: '0.06em',
                     marginTop: 6,
                     lineHeight: 1.6,
@@ -848,19 +818,19 @@ export default function Page() {
                 style={{
                   fontFamily: "'Syne Mono', monospace",
                   fontSize: 12,
-                  color: t.textMuted,
+                  color: 'var(--text-muted)',
                   textDecoration: 'none',
-                  borderBottom: `1px solid ${t.border}`,
+                  borderBottom: '1px solid var(--border)',
                   paddingBottom: 1,
                   transition: 'all 0.15s ease',
                 }}
                 onMouseEnter={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color = accent;
-                  (e.currentTarget as HTMLAnchorElement).style.borderBottomColor = accent;
+                  (e.currentTarget as HTMLAnchorElement).style.color = 'var(--accent)';
+                  (e.currentTarget as HTMLAnchorElement).style.borderBottomColor = 'var(--accent)';
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.color = t.textMuted;
-                  (e.currentTarget as HTMLAnchorElement).style.borderBottomColor = t.border;
+                  (e.currentTarget as HTMLAnchorElement).style.color = 'var(--text-muted)';
+                  (e.currentTarget as HTMLAnchorElement).style.borderBottomColor = 'var(--border)';
                 }}
               >
                 {link.text}
@@ -870,9 +840,9 @@ export default function Page() {
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: statusGreen,
-                background: `${statusGreen}18`,
-                border: `1px solid ${statusGreen}30`,
+                color: 'var(--status-green)',
+                background: '#16a34a18',
+                border: '1px solid #16a34a30',
                 padding: '4px 12px',
                 letterSpacing: '0.1em',
               }}
@@ -885,7 +855,7 @@ export default function Page() {
         {/* ── Role Fit ── */}
         <section
           id="fit"
-          style={{ paddingTop: 72, paddingBottom: 72, borderBottom: `1px solid ${t.border}` }}
+          style={{ paddingTop: 72, paddingBottom: 72, borderBottom: '1px solid var(--border)' }}
         >
           <div
             style={{
@@ -902,7 +872,7 @@ export default function Page() {
                 fontFamily: "'Syne', sans-serif",
                 fontSize: isMobile ? 22 : 28,
                 fontWeight: 700,
-                color: t.text,
+                color: 'var(--text)',
                 letterSpacing: '-0.02em',
               }}
             >
@@ -912,14 +882,16 @@ export default function Page() {
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: t.textSubtle,
+                color: 'var(--text-subtle)',
                 letterSpacing: '0.1em',
               }}
             >
               6 OF 6 KEY REQUIREMENTS
             </span>
           </div>
-          <p style={{ fontSize: 14, color: t.textMuted, marginBottom: 40, lineHeight: 1.6 }}>
+          <p
+            style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 40, lineHeight: 1.6 }}
+          >
             Each requirement from the job posting mapped directly to evidence from my work history.
           </p>
           <div
@@ -934,8 +906,8 @@ export default function Page() {
                 key={i}
                 className="align-card"
                 style={{
-                  background: t.alignCardBg,
-                  border: `1.5px solid ${t.alignCardBorder}`,
+                  background: 'var(--align-card-bg)',
+                  border: '1.5px solid var(--align-card-border)',
                   padding: '24px',
                   transition: 'border-color 0.2s ease',
                   display: 'flex',
@@ -948,19 +920,19 @@ export default function Page() {
                       fontFamily: "'Syne', sans-serif",
                       fontSize: 14,
                       fontWeight: 700,
-                      color: t.text,
+                      color: 'var(--text)',
                       letterSpacing: '-0.01em',
                       lineHeight: 1.3,
                     }}
                   >
-                    <span style={{ color: yellow, marginRight: 8 }}>✓</span>
+                    <span style={{ color: 'var(--yellow)', marginRight: 8 }}>✓</span>
                     {item.requirement}
                   </div>
                 </div>
                 <p
                   style={{
                     fontSize: 13,
-                    color: t.textBody,
+                    color: 'var(--text-body)',
                     lineHeight: 1.7,
                     marginBottom: 16,
                     flex: 1,
@@ -973,9 +945,9 @@ export default function Page() {
                     display: 'inline-block',
                     fontFamily: "'Syne Mono', monospace",
                     fontSize: 10,
-                    color: t.badgeText,
-                    background: t.badgeBg,
-                    border: `1px solid ${accent}30`,
+                    color: 'var(--badge-text)',
+                    background: 'var(--badge-bg)',
+                    border: '1px solid var(--accent-20)',
                     padding: '3px 10px',
                     letterSpacing: '0.08em',
                     alignSelf: 'flex-start',
@@ -991,14 +963,14 @@ export default function Page() {
         {/* ── Operational Philosophy ── */}
         <section
           id="philosophy"
-          style={{ paddingTop: 72, paddingBottom: 72, borderBottom: `1px solid ${t.border}` }}
+          style={{ paddingTop: 72, paddingBottom: 72, borderBottom: '1px solid var(--border)' }}
         >
           <h2
             style={{
               fontFamily: "'Syne', sans-serif",
               fontSize: isMobile ? 22 : 28,
               fontWeight: 700,
-              color: t.text,
+              color: 'var(--text)',
               letterSpacing: '-0.02em',
               marginBottom: 12,
             }}
@@ -1008,7 +980,7 @@ export default function Page() {
           <p
             style={{
               fontSize: 15,
-              color: t.textMuted,
+              color: 'var(--text-muted)',
               marginBottom: 16,
               lineHeight: 1.6,
               fontStyle: 'italic',
@@ -1016,7 +988,7 @@ export default function Page() {
           >
             Systems that keep working long after launch.
           </p>
-          <p style={{ fontSize: 14, color: t.textBody, marginBottom: 32, lineHeight: 1.7 }}>
+          <p style={{ fontSize: 14, color: 'var(--text-body)', marginBottom: 32, lineHeight: 1.7 }}>
             My goal is always measurable operational outcomes: fewer support tickets, cleaner
             reporting, and faster program launches.
           </p>
@@ -1037,15 +1009,19 @@ export default function Page() {
               'Stakeholder trust built by being the person who flags issues before they become incidents',
             ].map((item, i) => (
               <li key={i} style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
-                <span style={{ color: yellow, flexShrink: 0, marginTop: 5, fontSize: 7 }}>◆</span>
-                <span style={{ fontSize: 15, color: t.textBody, lineHeight: 1.7 }}>{item}</span>
+                <span style={{ color: 'var(--yellow)', flexShrink: 0, marginTop: 5, fontSize: 7 }}>
+                  ◆
+                </span>
+                <span style={{ fontSize: 15, color: 'var(--text-body)', lineHeight: 1.7 }}>
+                  {item}
+                </span>
               </li>
             ))}
           </ul>
           <div
             style={{
-              borderLeft: `3px solid ${accent}`,
-              background: t.surface2,
+              borderLeft: '3px solid var(--accent)',
+              background: 'var(--surface2)',
               padding: '20px 28px',
               transition: 'background 0.25s ease',
             }}
@@ -1055,14 +1031,16 @@ export default function Page() {
                 fontFamily: "'Syne', sans-serif",
                 fontSize: isMobile ? 14 : 16,
                 fontWeight: 500,
-                color: t.text,
+                color: 'var(--text)',
                 lineHeight: 1.75,
                 letterSpacing: '-0.005em',
               }}
             >
               The best LMS is invisible — learners succeed, leaders get answers, and the platform
               simply works. AI enhances operations; it doesn&apos;t replace discipline.{' '}
-              <span style={{ color: accent }}>Sustainable systems first, innovation second.</span>
+              <span style={{ color: 'var(--accent)' }}>
+                Sustainable systems first, innovation second.
+              </span>
             </p>
           </div>
         </section>
@@ -1070,7 +1048,7 @@ export default function Page() {
         {/* ── Projects ── */}
         <section
           id="projects"
-          style={{ paddingTop: 72, paddingBottom: 72, borderBottom: `1px solid ${t.border}` }}
+          style={{ paddingTop: 72, paddingBottom: 72, borderBottom: '1px solid var(--border)' }}
         >
           <div style={{ marginBottom: 12 }}>
             <h2
@@ -1078,7 +1056,7 @@ export default function Page() {
                 fontFamily: "'Syne', sans-serif",
                 fontSize: isMobile ? 20 : 26,
                 fontWeight: 700,
-                color: t.text,
+                color: 'var(--text)',
                 letterSpacing: '-0.02em',
                 lineHeight: 1.2,
               }}
@@ -1086,7 +1064,9 @@ export default function Page() {
               Applied Systems Built on My Learning Platform Architecture
             </h2>
           </div>
-          <p style={{ fontSize: 14, color: t.textMuted, marginBottom: 36, lineHeight: 1.6 }}>
+          <p
+            style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 36, lineHeight: 1.6 }}
+          >
             The AI-first mindset the job posting asks for — demonstrated through production systems,
             not prototypes.
           </p>
@@ -1094,8 +1074,8 @@ export default function Page() {
           {/* Platform Architecture block */}
           <div
             style={{
-              background: t.surface2,
-              border: `1.5px solid ${t.border}`,
+              background: 'var(--surface2)',
+              border: '1.5px solid var(--border)',
               padding: isMobile ? '20px' : '24px 28px',
               marginBottom: 32,
             }}
@@ -1104,14 +1084,21 @@ export default function Page() {
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: accent,
+                color: 'var(--accent)',
                 letterSpacing: '0.14em',
                 marginBottom: 10,
               }}
             >
               PLATFORM ARCHITECTURE
             </div>
-            <p style={{ fontSize: 13.5, color: t.textBody, lineHeight: 1.65, marginBottom: 20 }}>
+            <p
+              style={{
+                fontSize: 13.5,
+                color: 'var(--text-body)',
+                lineHeight: 1.65,
+                marginBottom: 20,
+              }}
+            >
               The tools below are applied implementations built on three connected core systems.
               Click any to explore the architecture.
             </p>
@@ -1138,7 +1125,7 @@ export default function Page() {
                     gap: isMobile ? 8 : 16,
                     padding: isMobile ? '14px 0' : '14px 28px',
                     margin: isMobile ? '0' : '0 -28px',
-                    borderTop: i > 0 ? `1px solid ${t.border}` : 'none',
+                    borderTop: i > 0 ? '1px solid var(--border)' : 'none',
                     cursor: 'pointer',
                     transition: 'background 0.15s ease',
                   }}
@@ -1149,7 +1136,7 @@ export default function Page() {
                         fontFamily: "'Syne', sans-serif",
                         fontSize: 14,
                         fontWeight: 700,
-                        color: t.text,
+                        color: 'var(--text)',
                         letterSpacing: '-0.01em',
                         marginBottom: 2,
                       }}
@@ -1160,7 +1147,7 @@ export default function Page() {
                       style={{
                         fontFamily: "'Syne Mono', monospace",
                         fontSize: 10,
-                        color: t.textSubtle,
+                        color: 'var(--text-subtle)',
                         letterSpacing: '0.06em',
                       }}
                     >
@@ -1181,8 +1168,8 @@ export default function Page() {
                         style={{
                           fontFamily: "'Syne Mono', monospace",
                           fontSize: 10,
-                          color: t.tagColor,
-                          border: `1px solid ${t.border}`,
+                          color: 'var(--tag-color)',
+                          border: '1px solid var(--border)',
                           padding: '1px 6px',
                         }}
                       >
@@ -1195,7 +1182,7 @@ export default function Page() {
                       fontFamily: "'Syne', sans-serif",
                       fontSize: 12,
                       fontWeight: 600,
-                      color: accent,
+                      color: 'var(--accent)',
                       flexShrink: 0,
                     }}
                   >
@@ -1208,20 +1195,20 @@ export default function Page() {
 
           {/* Applied tools divider */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
-            <div style={{ flex: 1, height: 1, background: t.border }} />
+            <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
             <span
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 10,
-                color: t.textSubtle,
+                color: 'var(--text-subtle)',
                 letterSpacing: '0.1em',
                 flexShrink: 0,
               }}
             >
-              <span style={{ color: yellow }}>✦</span> APPLIED IMPLEMENTATIONS{' '}
-              <span style={{ color: yellow }}>✦</span>
+              <span style={{ color: 'var(--yellow)' }}>✦</span> APPLIED IMPLEMENTATIONS{' '}
+              <span style={{ color: 'var(--yellow)' }}>✦</span>
             </span>
-            <div style={{ flex: 1, height: 1, background: t.border }} />
+            <div style={{ flex: 1, height: 1, background: 'var(--border)' }} />
           </div>
 
           <div
@@ -1232,13 +1219,7 @@ export default function Page() {
             }}
           >
             {PROJECTS.map((project) => (
-              <ProjectCard
-                key={project.id}
-                project={project}
-                accent={accent}
-                t={t}
-                onOpen={setActiveModal}
-              />
+              <ProjectCard key={project.id} project={project} onOpen={setActiveModal} />
             ))}
           </div>
         </section>
@@ -1246,14 +1227,14 @@ export default function Page() {
         {/* ── Experience ── */}
         <section
           id="experience"
-          style={{ paddingTop: 72, paddingBottom: 72, borderBottom: `1px solid ${t.border}` }}
+          style={{ paddingTop: 72, paddingBottom: 72, borderBottom: '1px solid var(--border)' }}
         >
           <h2
             style={{
               fontFamily: "'Syne', sans-serif",
               fontSize: isMobile ? 22 : 28,
               fontWeight: 700,
-              color: t.text,
+              color: 'var(--text)',
               letterSpacing: '-0.02em',
               marginBottom: 36,
             }}
@@ -1270,8 +1251,8 @@ export default function Page() {
                   gridTemplateColumns: isMobile ? '1fr' : '200px 1fr',
                   gap: isMobile ? 6 : 24,
                   padding: isMobile ? '20px 12px' : '24px 20px',
-                  borderTop: `1px solid ${t.border}`,
-                  borderBottom: i === EXPERIENCE.length - 1 ? `1px solid ${t.border}` : 'none',
+                  borderTop: '1px solid var(--border)',
+                  borderBottom: i === EXPERIENCE.length - 1 ? '1px solid var(--border)' : 'none',
                   transition: 'background 0.15s ease',
                 }}
               >
@@ -1280,7 +1261,7 @@ export default function Page() {
                     style={{
                       fontFamily: "'Syne Mono', monospace",
                       fontSize: 11,
-                      color: t.textSubtle,
+                      color: 'var(--text-subtle)',
                       letterSpacing: '0.06em',
                       marginBottom: 4,
                       lineHeight: 1.5,
@@ -1293,7 +1274,7 @@ export default function Page() {
                       fontFamily: "'Syne', sans-serif",
                       fontSize: 13,
                       fontWeight: 600,
-                      color: t.textSecondary,
+                      color: 'var(--text-secondary)',
                       lineHeight: 1.4,
                     }}
                   >
@@ -1306,7 +1287,7 @@ export default function Page() {
                       fontFamily: "'Syne', sans-serif",
                       fontSize: 15,
                       fontWeight: 700,
-                      color: t.text,
+                      color: 'var(--text)',
                       marginBottom: 10,
                       letterSpacing: '-0.01em',
                     }}
@@ -1324,10 +1305,23 @@ export default function Page() {
                   >
                     {job.bullets.map((b, j) => (
                       <li key={j} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
-                        <span style={{ color: yellow, flexShrink: 0, marginTop: 5, fontSize: 7 }}>
+                        <span
+                          style={{
+                            color: 'var(--yellow)',
+                            flexShrink: 0,
+                            marginTop: 5,
+                            fontSize: 7,
+                          }}
+                        >
                           ◆
                         </span>
-                        <span style={{ fontSize: 13.5, color: t.textSecondary, lineHeight: 1.65 }}>
+                        <span
+                          style={{
+                            fontSize: 13.5,
+                            color: 'var(--text-secondary)',
+                            lineHeight: 1.65,
+                          }}
+                        >
                           {b}
                         </span>
                       </li>
@@ -1341,8 +1335,8 @@ export default function Page() {
             style={{
               marginTop: 20,
               padding: isMobile ? '16px 12px' : '20px',
-              border: `1px solid ${t.border}`,
-              background: t.surface2,
+              border: '1px solid var(--border)',
+              background: 'var(--surface2)',
               transition: 'background 0.25s ease',
             }}
           >
@@ -1358,7 +1352,7 @@ export default function Page() {
                   style={{
                     fontFamily: "'Syne Mono', monospace",
                     fontSize: 11,
-                    color: t.textSubtle,
+                    color: 'var(--text-subtle)',
                     letterSpacing: '0.06em',
                     marginBottom: 4,
                   }}
@@ -1370,7 +1364,7 @@ export default function Page() {
                     fontFamily: "'Syne', sans-serif",
                     fontSize: 13,
                     fontWeight: 600,
-                    color: t.textSecondary,
+                    color: 'var(--text-secondary)',
                   }}
                 >
                   NYC&amp;DA
@@ -1382,14 +1376,14 @@ export default function Page() {
                     fontFamily: "'Syne', sans-serif",
                     fontSize: 15,
                     fontWeight: 700,
-                    color: t.text,
+                    color: 'var(--text)',
                     marginBottom: 4,
                     letterSpacing: '-0.01em',
                   }}
                 >
                   Full Stack Software Engineering
                 </div>
-                <div style={{ fontSize: 13.5, color: t.textMuted, lineHeight: 1.6 }}>
+                <div style={{ fontSize: 13.5, color: 'var(--text-muted)', lineHeight: 1.6 }}>
                   New York Code &amp; Design Academy · React, FastAPI, Django, PostgreSQL, REST API
                   design, Agile delivery
                 </div>
@@ -1401,14 +1395,14 @@ export default function Page() {
         {/* ── Skills ── */}
         <section
           id="skills"
-          style={{ paddingTop: 72, paddingBottom: 72, borderBottom: `1px solid ${t.border}` }}
+          style={{ paddingTop: 72, paddingBottom: 72, borderBottom: '1px solid var(--border)' }}
         >
           <h2
             style={{
               fontFamily: "'Syne', sans-serif",
               fontSize: isMobile ? 22 : 28,
               fontWeight: 700,
-              color: t.text,
+              color: 'var(--text)',
               letterSpacing: '-0.02em',
               marginBottom: 36,
             }}
@@ -1428,7 +1422,7 @@ export default function Page() {
                   style={{
                     fontFamily: "'Syne Mono', monospace",
                     fontSize: 10,
-                    color: accent,
+                    color: 'var(--accent)',
                     letterSpacing: '0.14em',
                     textTransform: 'uppercase',
                     marginBottom: 12,
@@ -1445,9 +1439,9 @@ export default function Page() {
                         fontFamily: "'Syne', sans-serif",
                         fontSize: 12,
                         fontWeight: 500,
-                        color: t.tagColor,
-                        background: t.tagBg,
-                        border: `1px solid ${t.border}`,
+                        color: 'var(--tag-color)',
+                        background: 'var(--tag-bg)',
+                        border: '1px solid var(--border)',
                         padding: '5px 12px',
                         cursor: 'default',
                         transition: 'all 0.15s ease',
@@ -1470,7 +1464,7 @@ export default function Page() {
               fontFamily: "'Syne', sans-serif",
               fontSize: isMobile ? 15 : 18,
               fontWeight: 500,
-              color: t.textMuted,
+              color: 'var(--text-muted)',
               lineHeight: 1.7,
               letterSpacing: '-0.01em',
               maxWidth: 520,
@@ -1489,14 +1483,16 @@ export default function Page() {
               fontFamily: "'Syne', sans-serif",
               fontSize: isMobile ? 22 : 28,
               fontWeight: 700,
-              color: t.text,
+              color: 'var(--text)',
               letterSpacing: '-0.02em',
               marginBottom: 8,
             }}
           >
             Get in Touch
           </h2>
-          <p style={{ fontSize: 14, color: t.textMuted, marginBottom: 40, lineHeight: 1.6 }}>
+          <p
+            style={{ fontSize: 14, color: 'var(--text-muted)', marginBottom: 40, lineHeight: 1.6 }}
+          >
             Download the resume or reach out directly.
           </p>
           <div
@@ -1504,8 +1500,8 @@ export default function Page() {
           >
             <div
               style={{
-                background: t.surface,
-                border: `1.5px solid ${t.border}`,
+                background: 'var(--surface)',
+                border: '1.5px solid var(--border)',
                 padding: '32px',
                 display: 'flex',
                 flexDirection: 'column',
@@ -1517,7 +1513,7 @@ export default function Page() {
                   style={{
                     fontFamily: "'Syne Mono', monospace",
                     fontSize: 10,
-                    color: accent,
+                    color: 'var(--accent)',
                     letterSpacing: '0.12em',
                     marginBottom: 8,
                   }}
@@ -1529,14 +1525,14 @@ export default function Page() {
                     fontFamily: "'Syne', sans-serif",
                     fontSize: 20,
                     fontWeight: 700,
-                    color: t.text,
+                    color: 'var(--text)',
                     letterSpacing: '-0.02em',
                     marginBottom: 8,
                   }}
                 >
                   Garth Puckerin
                 </div>
-                <p style={{ fontSize: 13.5, color: t.textBody, lineHeight: 1.6 }}>
+                <p style={{ fontSize: 13.5, color: 'var(--text-body)', lineHeight: 1.6 }}>
                   AI Native Learning Systems Architect · Senior LMS Administrator
                 </p>
               </div>
@@ -1551,7 +1547,7 @@ export default function Page() {
                     fontSize: 13,
                     fontWeight: 700,
                     color: '#fff',
-                    background: accent,
+                    background: 'var(--accent)',
                     padding: '10px 20px',
                     textDecoration: 'none',
                     letterSpacing: '0.03em',
@@ -1567,8 +1563,8 @@ export default function Page() {
                     fontFamily: "'Syne', sans-serif",
                     fontSize: 13,
                     fontWeight: 600,
-                    color: accent,
-                    border: `1.5px solid ${accent}`,
+                    color: 'var(--accent)',
+                    border: '1.5px solid var(--accent)',
                     padding: '10px 20px',
                     textDecoration: 'none',
                     letterSpacing: '0.03em',
@@ -1576,12 +1572,12 @@ export default function Page() {
                     display: 'inline-block',
                   }}
                   onMouseEnter={(e) => {
-                    (e.currentTarget as HTMLAnchorElement).style.background = accent;
+                    (e.currentTarget as HTMLAnchorElement).style.background = 'var(--accent)';
                     (e.currentTarget as HTMLAnchorElement).style.color = '#fff';
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLAnchorElement).style.background = 'transparent';
-                    (e.currentTarget as HTMLAnchorElement).style.color = accent;
+                    (e.currentTarget as HTMLAnchorElement).style.color = 'var(--accent)';
                   }}
                 >
                   View Online
@@ -1590,8 +1586,8 @@ export default function Page() {
             </div>
             <div
               style={{
-                background: t.surface2,
-                border: `1.5px solid ${t.border}`,
+                background: 'var(--surface2)',
+                border: '1.5px solid var(--border)',
                 padding: '32px',
                 display: 'flex',
                 flexDirection: 'column',
@@ -1603,14 +1599,14 @@ export default function Page() {
                   style={{
                     fontFamily: "'Syne Mono', monospace",
                     fontSize: 10,
-                    color: accent,
+                    color: 'var(--accent)',
                     letterSpacing: '0.12em',
                     marginBottom: 8,
                   }}
                 >
                   CONTACT
                 </div>
-                <p style={{ fontSize: 13.5, color: t.textBody, lineHeight: 1.6 }}>
+                <p style={{ fontSize: 13.5, color: 'var(--text-body)', lineHeight: 1.6 }}>
                   Reach out directly or connect on LinkedIn. I respond within one business day.
                 </p>
               </div>
@@ -1637,7 +1633,7 @@ export default function Page() {
                       style={{
                         fontFamily: "'Syne Mono', monospace",
                         fontSize: 10,
-                        color: t.textSubtle,
+                        color: 'var(--text-subtle)',
                         letterSpacing: '0.1em',
                         minWidth: 54,
                       }}
@@ -1651,18 +1647,19 @@ export default function Page() {
                       style={{
                         fontFamily: "'Syne Mono', monospace",
                         fontSize: 12,
-                        color: accent,
+                        color: 'var(--accent)',
                         textDecoration: 'none',
-                        borderBottom: `1px solid ${accent}40`,
+                        borderBottom: '1px solid var(--accent-10)',
                         paddingBottom: 1,
                         transition: 'all 0.15s ease',
                       }}
                       onMouseEnter={(e) => {
-                        (e.currentTarget as HTMLAnchorElement).style.borderBottomColor = accent;
+                        (e.currentTarget as HTMLAnchorElement).style.borderBottomColor =
+                          'var(--accent)';
                       }}
                       onMouseLeave={(e) => {
                         (e.currentTarget as HTMLAnchorElement).style.borderBottomColor =
-                          accent + '40';
+                          'var(--accent-10)';
                       }}
                     >
                       {c.value}
@@ -1678,14 +1675,14 @@ export default function Page() {
       {/* ── Footer ── */}
       <footer
         style={{
-          borderTop: `1px solid ${t.border}`,
+          borderTop: '1px solid var(--border)',
           padding: isMobile ? '24px 20px' : '24px 40px',
           display: 'flex',
           flexDirection: isMobile ? 'column' : 'row',
           justifyContent: 'space-between',
           alignItems: isMobile ? 'flex-start' : 'center',
           gap: isMobile ? 16 : 0,
-          background: t.footerBg,
+          background: 'var(--footer-bg)',
           transition: 'background 0.25s ease, border-color 0.25s ease',
           marginTop: 80,
         }}
@@ -1696,7 +1693,7 @@ export default function Page() {
               fontFamily: "'Syne', sans-serif",
               fontSize: 13,
               fontWeight: 700,
-              color: t.text,
+              color: 'var(--text)',
             }}
           >
             Garth Puckerin
@@ -1705,7 +1702,7 @@ export default function Page() {
             style={{
               fontFamily: "'Syne Mono', monospace",
               fontSize: 10,
-              color: theme === 'light' ? t.textMuted : t.textSubtle,
+              color: theme === 'light' ? 'var(--text-muted)' : 'var(--text-subtle)',
               fontWeight: theme === 'light' ? 600 : 400,
               letterSpacing: '0.08em',
             }}
@@ -1727,16 +1724,16 @@ export default function Page() {
               style={{
                 fontFamily: "'Syne Mono', monospace",
                 fontSize: 11,
-                color: t.textSubtle,
+                color: 'var(--text-subtle)',
                 textDecoration: 'none',
                 letterSpacing: '0.06em',
                 transition: 'color 0.15s ease',
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.color = accent;
+                (e.currentTarget as HTMLAnchorElement).style.color = 'var(--accent)';
               }}
               onMouseLeave={(e) => {
-                (e.currentTarget as HTMLAnchorElement).style.color = t.textSubtle;
+                (e.currentTarget as HTMLAnchorElement).style.color = 'var(--text-subtle)';
               }}
             >
               {l.text}
@@ -1746,15 +1743,7 @@ export default function Page() {
       </footer>
 
       {/* ── Modal ── */}
-      {activeModal && (
-        <ProjectModal
-          project={activeModal}
-          accent={accent}
-          t={t}
-          yellow={yellow}
-          onClose={() => setActiveModal(null)}
-        />
-      )}
+      {activeModal && <ProjectModal project={activeModal} onClose={() => setActiveModal(null)} />}
     </div>
   );
 }

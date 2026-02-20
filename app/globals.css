@@ -1,5 +1,185 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&family=Epilogue:wght@400;500&display=swap');
 
-/* Minimal reset — all layout is handled inline per component */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+/* ── Theme tokens ─────────────────────────────────────────────────────────── */
+
+:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --border: #dce5f0;
+  --text: #071628;
+  --text-muted: #5a6e84;
+  --text-subtle: #96aabf;
+  --text-body: #2c3e52;
+  --text-secondary: #4a5f75;
+  --header-bg: rgba(244, 247, 251, 0.96);
+  --tag-bg: #e4f0fb;
+  --tag-color: #005eb8;
+  --exp-hover: #eef4fb;
+  --footer-bg: #ffffff;
+  --toggle-bg: #071628;
+  --toggle-color: #f4f7fb;
+  --surface2: #eaf2fc;
+  --card-hover-bg: #0071ce;
+  --card-hover-text: #ffffff;
+  --card-hover-muted: rgba(255, 255, 255, 0.72);
+  --align-card-bg: #ffffff;
+  --align-card-border: #dce5f0;
+  --badge-bg: #e0f0ff;
+  --badge-text: #0060b0;
+  --accent: #0071ce;
+  --accent-10: #0071ce18;
+  --accent-20: #0071ce30;
+  --accent-35: #0071ce59;
+  --yellow: #c49b00;
+  --yellow-badge-bg: #fffbeb;
+  --yellow-badge-border: #e6b800;
+  --yellow-badge-text: #9b6c00;
+  --status-green: #16a34a;
+}
+
+[data-theme='dark'] {
+  --bg: #050d1c;
+  --surface: #091628;
+  --border: #102038;
+  --text: #deeaf8;
+  --text-muted: #526880;
+  --text-subtle: #2e4460;
+  --text-body: #7a9ab8;
+  --text-secondary: #5e7e98;
+  --header-bg: rgba(5, 13, 28, 0.96);
+  --tag-bg: #0a1e38;
+  --tag-color: #54a8e0;
+  --exp-hover: #0b1c30;
+  --footer-bg: #091628;
+  --toggle-bg: #deeaf8;
+  --toggle-color: #050d1c;
+  --surface2: #0c1e34;
+  --card-hover-bg: #0071ce;
+  --card-hover-text: #ffffff;
+  --card-hover-muted: rgba(255, 255, 255, 0.65);
+  --align-card-bg: #091628;
+  --align-card-border: #102038;
+  --badge-bg: #0a2040;
+  --badge-text: #4aaee8;
+  --accent: #4aaee8;
+  --accent-10: #4aaee818;
+  --accent-20: #4aaee830;
+  --accent-35: #4aaee859;
+  --yellow: #ffd24d;
+  --yellow-badge-bg: #ffd24d18;
+  --yellow-badge-border: #ffd24d55;
+  --yellow-badge-text: #ffd24d;
+  --status-green: #16a34a;
+}
+
+/* ── Reset ────────────────────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Base ─────────────────────────────────────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Epilogue', sans-serif;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+/* ── Animations ───────────────────────────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Focus ────────────────────────────────────────────────────────────────── */
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+button:focus-visible,
+[role='button']:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Skip link ────────────────────────────────────────────────────────────── */
+
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 16px;
+  z-index: 9999;
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 16px;
+  font-family: 'Syne', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: 8px;
+}
+
+/* ── Interactive states ───────────────────────────────────────────────────── */
+
+.nav-link:hover {
+  color: var(--accent) !important;
+}
+.skill-tag:hover {
+  background: var(--accent) !important;
+  color: #fff !important;
+  border-color: var(--accent) !important;
+}
+.exp-row:hover {
+  background: var(--exp-hover) !important;
+}
+.theme-btn:hover {
+  opacity: 0.8 !important;
+}
+.cta-dl:hover {
+  opacity: 0.85 !important;
+  transform: translateY(-1px) !important;
+}
+.align-card:hover {
+  border-color: var(--accent) !important;
+}
+.platform-row:hover {
+  background: var(--exp-hover) !important;
+}
