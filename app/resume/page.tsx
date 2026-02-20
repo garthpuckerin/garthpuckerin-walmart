@@ -127,7 +127,7 @@ export default function ResumePage() {
               marginBottom: 10,
             }}
           >
-            LMS ADMINISTRATOR APPLICATION · WALMART CONNECT ACADEMY
+            SENIOR LMS ADMINISTRATOR APPLICATION · WALMART CONNECT ACADEMY
           </div>
           <h1
             style={{
@@ -142,7 +142,7 @@ export default function ResumePage() {
             Garth Puckerin — Resume
           </h1>
           <p style={{ fontSize: 14, color: 'var(--text-muted)' }}>
-            AI Native Learning Systems Architect · LMS Administrator
+            AI Native Learning Systems Architect · Senior LMS Administrator
           </p>
         </div>
 
